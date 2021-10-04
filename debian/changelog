@@ -1,3 +1,35 @@
+prefix (1.2.9-3) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Trim trailing whitespace.
+  * Bump debhelper from deprecated 9 to 10.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Use secure URI in Vcs control header Vcs-Git.
+  * Remove unnecessary XS-Testsuite field in debian/control.
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Christoph Berg ]
+  * Upload for PostgreSQL 13.
+  * Use dh --with pgxs.
+  * DH 13.
+  * R³: no.
+  * debian/tests: Use 'make' instead of postgresql-server-dev-all.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 19 Oct 2020 22:16:06 +0200
+
+prefix (1.2.9-2) unstable; urgency=medium
+
+  * Upload for PostgreSQL 12.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 31 Oct 2019 11:13:12 +0100
+
+prefix (1.2.9-1) unstable; urgency=medium
+
+  * New upstream version with PG12 support.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 03 Jun 2019 16:10:31 +0200
+
 prefix (1.2.8-3) unstable; urgency=medium
 
   * Update PostgreSQL Maintainers address.
@@ -175,4 +207,3 @@ prefix (0.2-1) unstable; urgency=low
   * Initial release
 
  -- Dimitri Fontaine <dim@tapoueh.org>  Tue, 22 Apr 2008 11:42:09 +0200
-
