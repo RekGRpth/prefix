@@ -6,10 +6,8 @@
  * routing.
  *
  * Many thanks to AndrewSN, who provided great amount of help in the
- * writting of this opclass, on the PostgreSQL internals, GiST inner
+ * writing of this opclass, on the PostgreSQL internals, GiST inner
  * working and prefix search analyses.
- *
- * $Id: prefix.c,v 1.54 2009/10/06 09:55:32 dim Exp $
  */
 
 #include <stdio.h>
@@ -21,6 +19,9 @@
 #include "utils/palloc.h"
 #include "utils/builtins.h"
 #include "libpq/pqformat.h"
+#if PG_VERSION_NUM >= 160000
+#include "varatt.h"
+#endif
 #include <math.h>
 
 /**
@@ -88,7 +89,7 @@ Datum prefix_range_contained_by_strict(PG_FUNCTION_ARGS);
 Datum prefix_range_union(PG_FUNCTION_ARGS);
 Datum prefix_range_inter(PG_FUNCTION_ARGS);
 
-#define DatumGetPrefixRange(X)	          ((prefix_range *) VARDATA_ANY(DatumGetPointer(X)) )
+#define DatumGetPrefixRange(X)	          ((prefix_range *) VARDATA_ANY(X) )
 #define PrefixRangeGetDatum(X)	          PointerGetDatum(make_varlena(X))
 #define PG_GETARG_PREFIX_RANGE_P(n)	  DatumGetPrefixRange(PG_DETOAST_DATUM(PG_GETARG_DATUM(n)))
 #define PG_RETURN_PREFIX_RANGE_P(x)	  return PrefixRangeGetDatum(x)
@@ -1807,7 +1808,7 @@ gpr_picksplit(PG_FUNCTION_ARGS)
     GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
     GIST_SPLITVEC *v = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
 
-    PG_RETURN_POINTER(pr_picksplit(entryvec, v, false));
+    PG_RETURN_DATUM(pr_picksplit(entryvec, v, false));
 }
 
 PG_FUNCTION_INFO_V1(gpr_picksplit_presort);
@@ -1817,7 +1818,7 @@ gpr_picksplit_presort(PG_FUNCTION_ARGS)
     GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
     GIST_SPLITVEC *v = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
 
-    PG_RETURN_POINTER(pr_picksplit(entryvec, v, true));
+    PG_RETURN_DATUM(pr_picksplit(entryvec, v, true));
 }
 
 PG_FUNCTION_INFO_V1(gpr_union);
