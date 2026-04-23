@@ -1271,7 +1271,6 @@ gpr_picksplit_jordan(PG_FUNCTION_ARGS)
     GISTENTRY **raw_entryvec;
     int cut, cut_tolerance, lower_dist, upper_dist;
 
-    maxoff = entryvec->n - 1;
     nbytes = (maxoff + 1) * sizeof(OffsetNumber);
 
     v->spl_left  = (OffsetNumber *) palloc(nbytes);
