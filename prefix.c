@@ -59,7 +59,7 @@ enum pr_delimiters_t {
   PR_OPEN   = '[',
   PR_CLOSE  = ']',
   PR_SEP    = '-'
-} pr_delimiters;
+};
 
 /**
  * prefix_range input/output functions and operators
