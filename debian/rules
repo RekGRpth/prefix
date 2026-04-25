@@ -1,9 +1,0 @@
-#!/usr/bin/make -f
-
-override_dh_installdocs:
-	dh_installdocs --all README.md TESTS.md
-	# remove docs that belong elsewhere
-	rm -rf debian/*/usr/share/doc/postgresql-doc-*
-
-%:
-	dh $@ --with pgxs_loop

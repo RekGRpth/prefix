@@ -59,7 +59,7 @@ enum pr_delimiters_t {
   PR_OPEN   = '[',
   PR_CLOSE  = ']',
   PR_SEP    = '-'
-} pr_delimiters;
+};
 
 /**
  * prefix_range input/output functions and operators
@@ -89,9 +89,9 @@ Datum prefix_range_contained_by_strict(PG_FUNCTION_ARGS);
 Datum prefix_range_union(PG_FUNCTION_ARGS);
 Datum prefix_range_inter(PG_FUNCTION_ARGS);
 
-#define DatumGetPrefixRange(X)	          ((prefix_range *) VARDATA_ANY(X) )
+#define DatumGetPrefixRange(X)	          ((prefix_range *) VARDATA_ANY(DatumGetPointer(X)) )
 #define PrefixRangeGetDatum(X)	          PointerGetDatum(make_varlena(X))
-#define PG_GETARG_PREFIX_RANGE_P(n)	  DatumGetPrefixRange(PG_DETOAST_DATUM(PG_GETARG_DATUM(n)))
+#define PG_GETARG_PREFIX_RANGE_P(n)	  DatumGetPrefixRange(PointerGetDatum(PG_DETOAST_DATUM(PG_GETARG_DATUM(n))))
 #define PG_RETURN_PREFIX_RANGE_P(x)	  return PrefixRangeGetDatum(x)
 
 /**
@@ -1271,7 +1271,6 @@ gpr_picksplit_jordan(PG_FUNCTION_ARGS)
     GISTENTRY **raw_entryvec;
     int cut, cut_tolerance, lower_dist, upper_dist;
 
-    maxoff = entryvec->n - 1;
     nbytes = (maxoff + 1) * sizeof(OffsetNumber);
 
     v->spl_left  = (OffsetNumber *) palloc(nbytes);
